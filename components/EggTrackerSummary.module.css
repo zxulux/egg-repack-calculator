@@ -1,0 +1,288 @@
+@layer base {
+  .summaryContainer {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-8);
+    animation: fadeIn var(--animation-duration-normal) ease;
+  }
+
+  .header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: var(--spacing-4);
+    margin-top: var(--spacing-6);
+  }
+
+  .iconWrapper {
+    background-color: var(--success);
+    color: var(--success-foreground);
+    padding: var(--spacing-4);
+    border-radius: var(--radius-full);
+    box-shadow: var(--shadow-md);
+  }
+
+  .icon {
+    width: 3rem;
+    height: 3rem;
+  }
+
+  .title {
+    font-family: var(--font-family-heading);
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 0;
+    color: var(--foreground);
+  }
+
+  .subtitle {
+    font-family: var(--font-family-monospace);
+    font-size: 1rem;
+    color: var(--muted-foreground);
+    margin: 0;
+  }
+
+  .resultsCard {
+    background-color: var(--surface);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+  }
+
+  .tableHeader {
+    display: grid;
+    grid-template-columns: 2fr 1.2fr 1fr 1.2fr 1fr;
+    padding: var(--spacing-4) var(--spacing-6);
+    background-color: var(--muted);
+    font-weight: 600;
+    font-size: 0.875rem;
+    color: var(--muted-foreground);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .tableBody {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .tableRow {
+    display: grid;
+    grid-template-columns: 2fr 1.2fr 1fr 1.2fr 1fr;
+    padding: 1.25rem var(--spacing-6);
+    border-bottom: 1px solid var(--border);
+    transition: background-color var(--animation-duration-fast) ease;
+  }
+
+  .tableRow:last-child {
+    border-bottom: none;
+  }
+
+  .tableRow:hover {
+    background-color: color-mix(in srgb, var(--surface) 95%, var(--muted));
+  }
+
+  .typeCol {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--spacing-3);
+  }
+
+  .swatch {
+    width: 1rem;
+    height: 1rem;
+    border-radius: var(--radius-full);
+    flex-shrink: 0;
+    margin-top: 0.25rem;
+  }
+
+  .typeNameBlock {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-1);
+  }
+
+  .typeName {
+    font-weight: 600;
+    color: var(--foreground);
+    font-size: 1.0625rem;
+  }
+
+  .typeNote {
+    font-size: 0.75rem;
+    color: var(--muted-foreground);
+    font-style: italic;
+  }
+
+  .numericCol {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-2);
+  }
+
+  .statValue {
+    font-family: var(--font-family-monospace);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--foreground);
+    line-height: 1;
+  }
+
+  .statValueDamaged {
+    font-family: var(--font-family-monospace);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--error);
+    line-height: 1;
+  }
+  
+  .emptyDash {
+    color: var(--muted-foreground);
+    font-weight: 500;
+    font-size: 1.25rem;
+  }
+
+  .combinedSection {
+    background-color: color-mix(in srgb, var(--info) 10%, var(--surface));
+    border: 2px solid var(--info);
+    border-radius: var(--radius-lg);
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-4);
+  }
+
+  .combinedHeader {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-2);
+    color: var(--info);
+    font-family: var(--font-family-heading);
+    font-size: 1.125rem;
+    font-weight: 600;
+  }
+
+  .combinedStats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-4);
+  }
+
+  .combinedStat {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-1);
+  }
+
+  .combinedStatLabel {
+    font-size: 0.875rem;
+    color: var(--info);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .combinedStatValue {
+    font-family: var(--font-family-monospace);
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--foreground);
+    line-height: 1;
+  }
+
+    .separator {
+    margin: 0;
+  }
+
+  .combinedLabel {
+    padding: var(--spacing-3) var(--spacing-6);
+    background-color: var(--muted);
+    font-weight: 600;
+    font-size: 0.875rem;
+    color: var(--muted-foreground);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  
+
+  .actions {
+    display: flex;
+    justify-content: center;
+    margin-top: var(--spacing-4);
+  }
+
+  .homeBtn {
+    width: 100%;
+    max-width: 320px;
+    height: 4rem;
+    font-size: 1.125rem;
+    border-radius: var(--radius-lg);
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: scale(0.98);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  @media (max-width: 800px) {
+    .tableHeader {
+      display: none; /* Hide header on small screens */
+    }
+    
+    
+    .tableRow {
+      grid-template-columns: 1fr;
+      gap: var(--spacing-4);
+    }
+    
+    .tableRow {
+      padding: 1.25rem var(--spacing-4);
+    }
+
+    /* Add pseudo-elements for labels on mobile */
+    .numericCol {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+    }
+
+    .tableRow .numericCol:nth-child(2)::before {
+      content: "Repacked (Ctns)";
+      font-size: 0.875rem;
+      color: var(--muted-foreground);
+      font-weight: 600;
+    }
+    
+    .tableRow .numericCol:nth-child(3)::before {
+      content: "Leftover";
+      font-size: 0.875rem;
+      color: var(--muted-foreground);
+      font-weight: 600;
+    }
+    
+    .tableRow .numericCol:nth-child(4)::before {
+      content: "Damaged (Ctns)";
+      font-size: 0.875rem;
+      color: var(--muted-foreground);
+      font-weight: 600;
+    }
+    
+    .tableRow .numericCol:nth-child(5)::before {
+      content: "Leftover";
+      font-size: 0.875rem;
+      color: var(--muted-foreground);
+      font-weight: 600;
+    }
+  }
+}

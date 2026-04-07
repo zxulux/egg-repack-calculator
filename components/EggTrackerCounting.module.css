@@ -1,0 +1,443 @@
+@layer base {
+  .countingContainer {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-6);
+    padding-bottom: var(--spacing-8);
+  }
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--surface);
+    padding: var(--spacing-3) var(--spacing-4);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+  }
+
+  .sessionInfo {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .sessionLabel {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--muted-foreground);
+    font-weight: 600;
+  }
+
+  .sessionId {
+    font-family: var(--font-family-monospace);
+    font-size: 0.875rem;
+    color: var(--foreground);
+    font-weight: 500;
+  }
+
+  .completeBtn {
+    border-radius: var(--radius-full);
+    font-weight: 600;
+  }
+
+  .sectionTitle {
+    font-family: var(--font-family-heading);
+    font-size: 1.125rem;
+    color: var(--foreground);
+    margin-bottom: var(--spacing-4);
+    padding-left: var(--spacing-2);
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: var(--spacing-3);
+  }
+
+  .typeCard {
+    background-color: var(--surface);
+    border: 2px solid transparent;
+    border-left: 6px solid var(--card-color);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-4);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-3);
+    cursor: pointer;
+    box-shadow: var(--shadow);
+    transition: all var(--animation-duration-fast) ease;
+    text-align: left;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .typeCard:focus-visible {
+    box-shadow: var(--shadow-focus);
+  }
+
+  .typeCardSelected {
+    background-color: color-mix(in srgb, var(--card-color) 10%, var(--surface));
+    border-color: var(--card-color);
+  }
+
+  .cardTitle {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--foreground);
+  }
+
+  .cardTallies {
+    display: flex;
+    gap: var(--spacing-2);
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+  .tallyBadge {
+    font-family: var(--font-family-monospace);
+    font-size: 0.875rem;
+    padding: var(--spacing-1) var(--spacing-2);
+  }
+
+  /* Recent entries */
+  .recentSection {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .emptyText {
+    color: var(--muted-foreground);
+    font-size: 0.875rem;
+    font-style: italic;
+    padding-left: var(--spacing-2);
+    margin: 0;
+  }
+
+  .recentList {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-2);
+  }
+
+  .recentItem {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--spacing-2);
+    background-color: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-3) var(--spacing-4);
+    font-size: 0.875rem;
+  }
+
+  .recentItemClickable {
+    cursor: pointer;
+    transition: all var(--animation-duration-fast) ease;
+  }
+
+  .recentItemClickable:hover {
+    border-color: var(--primary);
+    background-color: color-mix(in srgb, var(--primary) 5%, var(--surface));
+  }
+
+  .recentItemAdjust {
+    border-left: 3px solid var(--warning);
+  }
+
+  .recentItemLeftover {
+    border-left: 3px solid var(--info);
+  }
+
+  .undoPromptItem {
+    justify-content: space-between;
+    background-color: color-mix(in srgb, var(--error) 10%, var(--surface));
+    border-color: var(--error);
+  }
+
+  .undoPromptText {
+    font-weight: 600;
+    color: var(--foreground);
+  }
+
+  .undoPromptActions {
+    display: flex;
+    gap: var(--spacing-2);
+  }
+
+  .recentTime {
+    color: var(--muted-foreground);
+    font-family: var(--font-family-monospace);
+    width: 5rem;
+  }
+
+  .recentType {
+    flex: 1;
+    font-weight: 600;
+    color: var(--foreground);
+    min-width: 100px;
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-2);
+  }
+
+  .adjustBadge {
+    font-size: 0.75rem;
+    font-weight: 500;
+    background-color: color-mix(in srgb, var(--warning) 15%, transparent);
+    color: var(--warning);
+    border: 1px solid color-mix(in srgb, var(--warning) 30%, transparent);
+    border-radius: var(--radius-full);
+    padding: 0.1rem var(--spacing-2);
+  }
+
+  .leftoverBadge {
+    font-size: 0.75rem;
+    font-weight: 500;
+    background-color: color-mix(in srgb, var(--info) 15%, transparent);
+    color: var(--info);
+    border: 1px solid color-mix(in srgb, var(--info) 30%, transparent);
+    border-radius: var(--radius-full);
+    padding: 0.1rem var(--spacing-2);
+  }
+
+  .recentTally {
+    display: flex;
+    gap: var(--spacing-3);
+    font-family: var(--font-family-monospace);
+    font-weight: 600;
+  }
+
+  .damagedText {
+    color: var(--error);
+  }
+
+  .recentTallyLeftover {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-1);
+    font-family: var(--font-family-monospace);
+    font-weight: 600;
+    font-size: 0.8125rem;
+    text-align: right;
+  }
+
+  .leftoverSummaryRow {
+    display: flex;
+    justify-content: flex-end;
+    gap: var(--spacing-2);
+  }
+
+  .leftoverSummaryType {
+    color: var(--muted-foreground);
+    font-family: var(--font-family-base);
+    font-weight: 500;
+  }
+
+  .viewAllBtn {
+    margin-top: var(--spacing-3);
+    width: 100%;
+  }
+
+  .sheetContent {
+    padding: var(--spacing-4);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-2);
+  }
+
+  /* Entry section */
+  .entrySection {
+    background-color: var(--surface);
+    border-radius: var(--radius-lg);
+    padding: 1.25rem;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-md);
+    animation: fadeIn var(--animation-duration-normal) ease;
+  }
+
+  .entryHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-4);
+    gap: var(--spacing-3);
+    flex-wrap: wrap;
+  }
+
+  .entryTitle {
+    font-family: var(--font-family-heading);
+    font-size: 1.25rem;
+    color: var(--foreground);
+    margin: 0;
+  }
+
+  .missingEggsControl {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-2);
+  }
+
+  .missingEggsBadge {
+    font-family: var(--font-family-monospace);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    background-color: color-mix(in srgb, var(--warning) 15%, transparent);
+    color: var(--warning);
+    border: 1px solid color-mix(in srgb, var(--warning) 30%, transparent);
+    border-radius: var(--radius-full);
+    padding: var(--spacing-1) var(--spacing-3);
+    white-space: nowrap;
+  }
+
+  .missingBtn {
+    white-space: nowrap;
+  }
+
+  /* Missing eggs inline picker */
+  .missingPickerPanel {
+    background-color: var(--muted);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-4);
+    margin-bottom: var(--spacing-4);
+    border: 1px solid var(--border);
+  }
+
+  .missingPickerLabel {
+    font-size: 0.875rem;
+    color: var(--muted-foreground);
+    margin: 0 0 var(--spacing-3) 0;
+  }
+
+  .missingPickerGrid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: var(--spacing-2);
+    margin-bottom: var(--spacing-3);
+  }
+
+  @media (max-width: 480px) {
+    .missingPickerGrid {
+      grid-template-columns: repeat(5, 1fr);
+    }
+  }
+
+  .missingPickerBtn {
+    background-color: var(--surface);
+    color: var(--foreground);
+    border: 2px solid transparent;
+    border-radius: var(--radius);
+    height: 2.75rem;
+    font-family: var(--font-family-monospace);
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--animation-duration-fast) ease;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .missingPickerBtn:hover {
+    background-color: color-mix(in srgb, var(--warning) 10%, var(--surface));
+    border-color: var(--warning);
+  }
+
+  .missingPickerBtnSelected {
+    background-color: var(--warning);
+    color: var(--warning-foreground);
+    border-color: color-mix(in srgb, var(--warning) 80%, black);
+  }
+
+  .clearMissingBtn {
+    background: none;
+    border: none;
+    color: var(--muted-foreground);
+    font-size: 0.8125rem;
+    cursor: pointer;
+    text-decoration: underline;
+    padding: 0;
+  }
+
+  .clearMissingBtn:hover {
+    color: var(--foreground);
+  }
+
+  .promptText {
+    font-size: 1rem;
+    color: var(--muted-foreground);
+    margin-bottom: var(--spacing-4);
+    margin-top: 0;
+  }
+
+  .numberGrid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--spacing-2);
+    margin-bottom: var(--spacing-6);
+  }
+
+  /* +1 for the 0 button, so large_white_flat has 31 buttons */
+  .numberGridLarge {
+    grid-template-columns: repeat(5, 1fr);
+  }
+
+  @media (max-width: 480px) {
+    .numberGrid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+    .numberGridLarge {
+      grid-template-columns: repeat(5, 1fr);
+      gap: var(--spacing-1);
+    }
+  }
+
+  .numberBtn {
+    background-color: var(--muted);
+    color: var(--foreground);
+    border: 2px solid transparent;
+    border-radius: var(--radius-md);
+    height: 4rem;
+    font-family: var(--font-family-monospace);
+    font-size: 1.5rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--animation-duration-fast) ease;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .numberBtn:hover {
+    background-color: color-mix(in srgb, var(--muted) 80%, var(--foreground));
+  }
+
+  .numberBtnSelected {
+    background-color: var(--primary);
+    color: var(--primary-foreground);
+    border-color: color-mix(in srgb, var(--primary) 80%, black);
+    transform: scale(0.98);
+  }
+
+  .numberBtnDisabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+  }
+
+  .submitBtn {
+    width: 100%;
+    height: 4rem;
+    font-size: 1.125rem;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}

@@ -1,0 +1,215 @@
+@layer base {
+  .container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-6);
+    background-color: var(--surface);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border);
+    padding: var(--spacing-6);
+    box-shadow: var(--shadow-md);
+    max-width: 600px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .header {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-2);
+  }
+
+  .title {
+    font-family: var(--font-family-heading);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--foreground);
+    margin: 0;
+  }
+
+  .subtitle {
+    font-size: 1rem;
+    color: var(--muted-foreground);
+    margin: 0;
+  }
+
+  .form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-2);
+  }
+
+  .columnHeaders {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--spacing-4);
+    padding: 0 0 var(--spacing-2) 0;
+    border-bottom: 2px solid var(--border);
+  }
+
+  .columnHeaderLabel {
+    flex: 1;
+  }
+
+  .columnHeaderInputs {
+    display: flex;
+    gap: var(--spacing-3);
+  }
+
+  .columnHeader {
+    width: 100px;
+    text-align: center;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--muted-foreground);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--spacing-4);
+    padding: var(--spacing-3) 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .row:last-child {
+    border-bottom: none;
+  }
+
+  .labelContainer {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-1);
+    flex: 1;
+  }
+
+  .label {
+    font-weight: 600;
+    font-size: 1.125rem;
+    color: var(--foreground);
+  }
+
+  .info {
+    font-size: 0.875rem;
+    color: var(--muted-foreground);
+    max-width: 250px;
+    line-height: 1.3;
+  }
+
+  .inputGroup {
+    display: flex;
+    gap: var(--spacing-3);
+    flex-shrink: 0;
+  }
+
+  .input {
+    width: 100px;
+    text-align: center;
+    font-family: var(--font-family-monospace);
+    font-size: 1.25rem;
+    font-weight: 600;
+    height: 3.5rem;
+  }
+
+  .inputDamaged {
+    border-color: color-mix(in srgb, var(--error) 40%, var(--border));
+  }
+
+  .inputDamaged:hover {
+    border-color: color-mix(in srgb, var(--error) 70%, transparent);
+  }
+
+  .inputDamaged:focus {
+    border-color: var(--error);
+    box-shadow:
+      0 0 0 3px color-mix(in srgb, var(--error) 15%, transparent),
+      0 2px 4px rgba(0, 0, 0, 0.05);
+  }
+
+  .inputPlaceholder {
+    width: 100px;
+    flex-shrink: 0;
+  }
+
+  /* Summary (step 2) */
+
+  .summaryList {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-3);
+    margin: var(--spacing-4) 0;
+  }
+
+  .summaryItem {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--spacing-4);
+    padding: var(--spacing-4);
+    background-color: var(--muted);
+    border-radius: var(--radius-md);
+  }
+
+  .summaryLabel {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--foreground);
+  }
+
+  .summaryCounts {
+    display: flex;
+    gap: var(--spacing-6);
+    flex-shrink: 0;
+  }
+
+  .summaryCountGroup {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-1);
+  }
+
+  .summaryCountLabel {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--muted-foreground);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .summaryCount {
+    font-family: var(--font-family-monospace);
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--primary);
+  }
+
+  .summaryCountDamaged {
+    color: var(--error);
+  }
+
+  .emptySummary {
+    text-align: center;
+    padding: var(--spacing-6);
+    color: var(--muted-foreground);
+    font-style: italic;
+    background-color: var(--muted);
+    border-radius: var(--radius-md);
+  }
+
+  .actions {
+    display: flex;
+    gap: var(--spacing-4);
+    margin-top: var(--spacing-2);
+  }
+
+  .btn {
+    flex: 1;
+    height: 3.5rem;
+    font-size: 1.125rem;
+  }
+}
