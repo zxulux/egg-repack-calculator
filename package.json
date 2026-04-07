@@ -1,12 +1,9 @@
-
-
-
 {
   "type": "module",
-"scripts": {
-  "build": "vite build",
-  "start": "tsx server.ts"
-}
+  "scripts": {
+    "build": "vite build",
+    "start": "tsx server.ts"
+  },
   "dependencies": {
     "kysely": "0.26.3",
     "nanoid": "5.1.7",
