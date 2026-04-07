@@ -1,0 +1,212 @@
+
+@import url(https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap);
+@import url(https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap);
+@import url(https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap);
+@import url(https://fonts.googleapis.com/css2?family=Caveat:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap);
+:root {
+  /* Overlay layers */
+  --z-overlay: 400;
+
+  --z-spotlight: 1000; /* Tutorial spotlights/guided help */
+
+  /* System layers */
+  --z-critical: 2000; /* Critical system notifications */
+
+  /* spacing */
+  --spacing-1: 0.25rem;
+  --spacing-2: 0.5rem;
+  --spacing-3: 0.75rem;
+  --spacing-4: 1rem;
+  --spacing-5: 1.25rem;
+  --spacing-6: 1.5rem;
+  --spacing-7: 1.75rem;
+  --spacing-8: 2rem;
+  --spacing-9: 2.25rem;
+  --spacing-10: 2.5rem;
+  --spacing-11: 2.75rem;
+  --spacing-12: 3rem;
+  --spacing-13: 3.25rem;
+  --spacing-14: 3.5rem;
+  --spacing-15: 3.75rem;
+  --spacing-16: 4rem;
+  --spacing-17: 4.25rem;
+  --spacing-18: 4.5rem;
+  --spacing-19: 4.75rem;
+  --spacing-20: 5rem;
+  /* Note: spacing vars only up to 20 */
+}
+
+:root {
+  /* Light Mode - Warm, eggshell-inspired utility */
+  --background: #F7F6F3;
+  --foreground: #2C2A28;
+
+  --surface: #FFFFFF;
+  --surface-foreground: #2C2A28;
+  
+  --sidebar: #EFECE7;
+  --sidebar-foreground: #2C2A28;
+  
+  --card: #FFFFFF;
+  --card-foreground: #2C2A28;
+  
+  --popup: #FFFFFF;
+  --popup-foreground: #2C2A28;
+  
+  --primary: #2E5C40; /* Deep agricultural green for primary actions */
+  --primary-foreground: #FFFFFF;
+  
+  --secondary: #D97757; /* Terracotta/Brown for secondary actions and egg types */
+  --secondary-foreground: #FFFFFF;
+  
+  --accent: #E8A365; /* Warm yolk yellow for highlights */
+  --accent-foreground: #2C2A28;
+  
+  --muted: #EAE7E1;
+  --muted-foreground: #6B665E;
+  
+  --success: #3A7D54;
+  --success-foreground: #FFFFFF;
+  
+  --error: #B84B4B;
+  --error-foreground: #FFFFFF;
+  
+  --warning: #D99B38;
+  --warning-foreground: #FFFFFF;
+  
+  --info: #4A728C;
+  --info-foreground: #FFFFFF;
+  --info-hover: #3D6077;
+  --info-active: #314F63;
+
+  --border: #DCD8D0;
+
+  /* Font Families */
+  --font-family-base: 'Karla', system-ui, sans-serif;
+  --font-family-heading: 'Work Sans', system-ui, sans-serif;
+  --font-family-monospace: 'JetBrains Mono', monospace; /* Crucial for tabular tallies */
+  --font-family-cursive: 'Caveat', cursive;
+
+  /* Border Radius - Chunky and tactile for easy tapping */
+  --radius-sm: 0.375rem;
+  --radius: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1.25rem;
+  --radius-full: 9999px; 
+
+  /* Box Shadows - Minimal, flat aesthetic */
+  --shadow: 0 1px 2px rgba(44, 42, 40, 0.04);
+  --shadow-md: 0 4px 6px -1px rgba(44, 42, 40, 0.06), 0 2px 4px -1px rgba(44, 42, 40, 0.04);
+  --shadow-lg: 0 10px 15px -3px rgba(44, 42, 40, 0.08), 0 4px 6px -2px rgba(44, 42, 40, 0.04);
+  --shadow-focus: 0 0 0 3px rgba(46, 92, 64, 0.3);
+
+  /* Animation */
+  --animation-duration-fast: 150ms;
+  --animation-duration-normal: 250ms;
+  --animation-duration-slow: 400ms;
+
+  /* Chart colors - Distinct for the 5 egg types */
+  --chart-color-1: #D97757; /* Terracotta */
+  --chart-color-2: #2E5C40; /* Forest Green */
+  --chart-color-3: #E8A365; /* Yolk */
+  --chart-color-4: #8C6B5D; /* Brown */
+  --chart-color-5: #5C7A8C; /* Slate Blue */
+}
+
+.dark {
+  /* Dark Mode - High contrast for low-light warehouse environments */
+  --background: #1A1918;
+  --foreground: #F2EFE9;
+
+  --surface: #242220;
+  --surface-foreground: #F2EFE9;
+  
+  --sidebar: #1E1C1B;
+  --sidebar-foreground: #F2EFE9;
+  
+  --card: #242220;
+  --card-foreground: #F2EFE9;
+  
+  --popup: #2A2826;
+  --popup-foreground: #F2EFE9;
+  
+  --primary: #4A8B63;
+  --primary-foreground: #FFFFFF;
+  
+  --secondary: #D98A4C;
+  --secondary-foreground: #1A1918;
+  
+  --accent: #E8A365;
+  --accent-foreground: #1A1918;
+  
+  --muted: #33302D;
+  --muted-foreground: #A39E93;
+  
+  --success: #4A8B63;
+  --success-foreground: #FFFFFF;
+  
+  --error: #CF5C5C;
+  --error-foreground: #FFFFFF;
+  
+  --warning: #E6AD45;
+  --warning-foreground: #1A1918;
+  
+  --info: #5C8BA6;
+  --info-foreground: #FFFFFF;
+  --info-hover: #6D9CB8;
+  --info-active: #7EADC9;
+
+  --border: #403D39;
+
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -2px rgba(0, 0, 0, 0.2);
+  --shadow-focus: 0 0 0 3px rgba(74, 139, 99, 0.4);
+
+  --chart-color-1: #D98A4C;
+  --chart-color-2: #4A8B63;
+  --chart-color-3: #E8A365;
+  --chart-color-4: #A68576;
+  --chart-color-5: #7395A6;
+}
+@layer base {
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    background: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-family-base);
+  }
+
+  * {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+  }
+
+
+  button {
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: inherit;
+    color: inherit;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  th, td {
+    display: table-cell!important;
+  }
+}
+.rbc-month-view {
+  overflow: visible !important;
+}
