@@ -1,0 +1,20 @@
+{
+  "name": "Egg Repack Calculator",
+  "short_name": "Egg Repack",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#f59e0b",
+  "icons": [
+    {
+      "src": "https://assets.floot.app/0a622cb5-2e00-4be1-9e45-7f962728fed0/01c8acae-faaa-4dea-a12f-81a6a4caff5f.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "https://assets.floot.app/0a622cb5-2e00-4be1-9e45-7f962728fed0/01c8acae-faaa-4dea-a12f-81a6a4caff5f.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
