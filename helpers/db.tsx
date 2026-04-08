@@ -21,3 +21,8 @@ export const db = new Kysely<DB>({
     }),
   }),
 })
+
+console.log("ENV CHECK:", {
+  FLOOT_DATABASE_URL: process.env.FLOOT_DATABASE_URL,
+  DATABASE_URL: process.env.DATABASE_URL,
+})
