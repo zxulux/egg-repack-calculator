@@ -3,6 +3,13 @@ import { Check, AlertTriangle } from "lucide-react";
 import { Button } from "./Button";
 import { Badge } from "./Badge";
 import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "./Dialog";
+import {
   Sheet,
   SheetContent,
   SheetDescription,
@@ -43,7 +50,8 @@ export const EggTrackerCounting = ({ sessionData }: Props) => {
   const undoEntry = useUndoEntry();
   const completeSession = useCompleteSession();
 
-  const entrySectionRef = useRef<HTMLElement>(null);
+    const entrySectionRef = useRef<HTMLElement>(null);
+    const prevLastEntryIdRef = useRef<string | null | undefined>(undefined);
 
   const handleTypeSelect = (typeId: EggType) => {
     setSelectedType(typeId);
@@ -74,8 +82,8 @@ export const EggTrackerCounting = ({ sessionData }: Props) => {
         missingEggs: missingEggsCount,
       },
       {
-        onSuccess: () => {
-          setSelectedDamaged(null);
+              onSuccess: () => {
+                    setSelectedDamaged(null);
           setMissingEggsCount(0);
           setIsMissingPickerOpen(false);
         },
@@ -131,6 +139,21 @@ export const EggTrackerCounting = ({ sessionData }: Props) => {
       hour12: true,
     }).format(new Date(dateStr));
   };
+
+    // Scroll to bottom when a new "last entry" appears for the selected type
+  const lastEntryForSelectedType = selectedType
+    ? sessionData.entries
+        .filter((e) => e.eggType === selectedType)
+        .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())[0]
+    : null;
+
+  useEffect(() => {
+    const currentId = lastEntryForSelectedType?.id ?? null;
+    if (prevLastEntryIdRef.current !== undefined && currentId !== null && currentId !== prevLastEntryIdRef.current) {
+      window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+    }
+    prevLastEntryIdRef.current = currentId;
+  }, [lastEntryForSelectedType?.id]);
 
   // Compute max allowed damaged for current type (considering missing eggs selected)
   const maxDamagedForType = activeConfig
@@ -285,7 +308,7 @@ export const EggTrackerCounting = ({ sessionData }: Props) => {
   return (
     <div className={styles.countingContainer}>
       <header className={styles.header}>
-                <div className={styles.sessionInfo}>
+        <div className={styles.sessionInfo}>
           <span className={styles.sessionLabel}>Session Active</span>
           <span className={styles.sessionId}>
             {new Intl.DateTimeFormat("en-US", {
@@ -297,14 +320,43 @@ export const EggTrackerCounting = ({ sessionData }: Props) => {
             }).format(new Date(sessionData.session.createdAt))}
           </span>
         </div>
-        <Button
-          variant="destructive"
-          onClick={handleComplete}
-          className={styles.completeBtn}
-          disabled={completeSession.isPending}
-        >
-          <Check size={18} /> Complete
-        </Button>
+        <div className={styles.headerActions}>
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button variant="outline" size="icon" className={styles.helpBtn}>
+                ?
+              </Button>
+            </DialogTrigger>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>Instructions</DialogTitle>
+              </DialogHeader>
+              <ol className={styles.instructionList}>
+                <li>Enter leftover eggs from last session (see egg tracking sheet)</li>
+                <li>Select type of egg to repack</li>
+                <li>Enter missing eggs, if any</li>
+                <li>Repack eggs into appropriate cartons</li>
+                <li>Enter number of damaged eggs left</li>
+                <li>Repeat steps 2-5 until all eggs repacked</li>
+                <li>Press complete (at top)</li>
+                <li>Record repacked, damaged, and leftover on egg tracking sheet</li>
+                <li>Put repacked eggs shelf for sale</li>
+                <li>Dispose of damaged eggs</li>
+              </ol>
+              <p className={styles.instructionNote}>
+                <strong>Note:</strong> Repacks must have an expiry date. Use the earliest date from cartons repacked.
+              </p>
+            </DialogContent>
+          </Dialog>
+          <Button
+            variant="destructive"
+            onClick={handleComplete}
+            className={styles.completeBtn}
+            disabled={completeSession.isPending}
+          >
+            <Check size={18} /> Complete
+          </Button>
+        </div>
       </header>
 
       <section className={styles.typeSelection}>
@@ -454,6 +506,16 @@ export const EggTrackerCounting = ({ sessionData }: Props) => {
               }
             )}
           </div>
+
+                              <p className={styles.lastEntryHint}>
+            {(() => {
+              const lastEntryForType = sessionData.entries
+                .filter((e) => e.eggType === selectedType)
+                .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())[0];
+              if (!lastEntryForType) return "\u00A0";
+              return `Last: +${lastEntryForType.eggsRepacked} Repacked, +${lastEntryForType.eggsDamaged} Damaged`;
+            })()}
+          </p>
 
           <Button
             size="lg"

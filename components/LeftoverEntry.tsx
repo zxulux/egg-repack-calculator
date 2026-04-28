@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button } from "./Button";
 import { Input } from "./Input";
+import { Skeleton } from "./Skeleton";
 import { EGG_TYPES_LIST } from "../helpers/eggConfig";
-import { useSaveLeftovers } from "../helpers/useSessionApi";
+import { useSaveLeftovers, useLastCompletedTallies } from "../helpers/useSessionApi";
 import type { EggType } from "../helpers/schema";
 import styles from "./LeftoverEntry.module.css";
 
@@ -30,7 +31,14 @@ export const LeftoverEntry = ({
     initialDamagedCounts !== undefined ||
     initialCombinedCount !== undefined;
 
-  const [step, setStep] = useState<1 | 2>(1);
+  const [step, setStep] = useState<0 | 1 | 2>(isEditMode ? 1 : 0);
+  const lastTalliesQuery = useLastCompletedTallies();
+
+  useEffect(() => {
+    if (step === 0 && lastTalliesQuery.isSuccess && lastTalliesQuery.data && !lastTalliesQuery.data.found) {
+      setStep(1);
+    }
+  }, [step, lastTalliesQuery.isSuccess, lastTalliesQuery.data]);
   const [repackedCounts, setRepackedCounts] = useState<Partial<Record<EggType, string>>>(() => {
     const res: Partial<Record<EggType, string>> = {};
     if (initialRepackedCounts) {
@@ -101,6 +109,157 @@ export const LeftoverEntry = ({
   );
   const hasCombined = getNum(combinedCount) > 0;
   const hasAnyLeftovers = activeLeftovers.length > 0 || hasCombined;
+
+  const handleEditPrevious = () => {
+    const data = lastTalliesQuery.data;
+    if (data?.found) {
+      const newRepacked: Partial<Record<EggType, string>> = {};
+      const newDamaged: Partial<Record<EggType, string>> = {};
+      for (const type of EGG_TYPES_LIST) {
+        const tally = data.tallies[type.id];
+        if (tally.repacked > 0) newRepacked[type.id] = String(Math.min(tally.repacked, type.size - 1));
+        if (tally.damaged > 0) newDamaged[type.id] = String(Math.min(tally.damaged, type.size - 1));
+      }
+      setRepackedCounts(newRepacked);
+      setDamagedCounts(newDamaged);
+      setCombinedCount(String(Math.min(data.combinedLargeWhiteRepacked, 11)));
+    }
+    setStep(1);
+  };
+
+  const handleUsePrevious = () => {
+    const data = lastTalliesQuery.data;
+    if (!data?.found) return;
+    const leftoversPayload = EGG_TYPES_LIST.map((type) => {
+      const tally = data.tallies[type.id];
+      return {
+        eggType: type.id,
+        repackedCount: Math.min(tally.repacked, type.size - 1),
+        damagedCount: Math.min(tally.damaged, type.size - 1),
+      };
+    });
+
+    saveLeftovers.mutate(
+      {
+        sessionId,
+        leftovers: leftoversPayload,
+        combinedLargeRepacked: Math.min(data.combinedLargeWhiteRepacked, 11),
+      },
+      {
+        onSuccess: () => {
+          onComplete();
+        },
+      }
+    );
+  };
+
+  if (step === 0) {
+    if (lastTalliesQuery.isPending) {
+      return (
+        <div className={`${styles.container} ${className || ""}`}>
+          <div className={styles.header}>
+            <Skeleton style={{ width: "250px", height: "2rem" }} />
+            <Skeleton style={{ width: "200px", height: "1.25rem" }} />
+          </div>
+          <div className={styles.summaryList}>
+            <Skeleton style={{ height: "4.5rem" }} />
+            <Skeleton style={{ height: "4.5rem" }} />
+          </div>
+        </div>
+      );
+    }
+
+    if (lastTalliesQuery.isSuccess && lastTalliesQuery.data.found) {
+      const data = lastTalliesQuery.data;
+      const activePreviousLeftovers = EGG_TYPES_LIST.filter(
+        (type) => data.tallies[type.id].repacked > 0 || data.tallies[type.id].damaged > 0
+      );
+      const hasPreviousCombined = data.combinedLargeWhiteRepacked > 0;
+      const hasAnyPrevious = activePreviousLeftovers.length > 0 || hasPreviousCombined;
+
+      return (
+        <div className={`${styles.container} ${className || ""}`}>
+          <div className={styles.header}>
+            <h2 className={styles.title}>Leftovers from Last Session</h2>
+            <p className={styles.subtitle}>Are these numbers correct?</p>
+            <p className={styles.completedAt}>
+              Session completed:{" "}
+              {new Intl.DateTimeFormat(undefined, {
+                year: "numeric",
+                month: "short",
+                day: "numeric",
+                hour: "numeric",
+                minute: "2-digit",
+              }).format(new Date(data.completedAt))}
+            </p>
+          </div>
+
+          <div className={styles.summaryList}>
+            {activePreviousLeftovers.map((type) => {
+              const repacked = Math.min(data.tallies[type.id].repacked, type.size - 1);
+              const damaged = Math.min(data.tallies[type.id].damaged, type.size - 1);
+              return (
+                <div key={type.id} className={styles.summaryItem}>
+                  <span className={styles.summaryLabel}>{type.name}</span>
+                  <div className={styles.summaryCounts}>
+                    <span className={styles.summaryCountGroup}>
+                      <span className={styles.summaryCountLabel}>Repacked</span>
+                                          <span className={styles.summaryCount}>({repacked})</span>
+                    </span>
+                    <span className={styles.summaryCountGroup}>
+                      <span className={styles.summaryCountLabel}>Damaged</span>
+                      <span className={`${styles.summaryCount} ${styles.summaryCountDamaged}`}>({damaged})</span>
+                    </span>
+                  </div>
+                </div>
+              );
+            })}
+            {hasPreviousCombined && (
+              <div className={styles.summaryItem}>
+                <span className={styles.summaryLabel}>Combined Large White</span>
+                <div className={styles.summaryCounts}>
+                  <span className={styles.summaryCountGroup}>
+                    <span className={styles.summaryCountLabel}>Repacked</span>
+                                        <span className={styles.summaryCount}>({Math.min(data.combinedLargeWhiteRepacked, 11)})</span>
+                  </span>
+                </div>
+              </div>
+            )}
+            {!hasAnyPrevious && (
+              <div className={styles.emptySummary}>No leftovers from last session.</div>
+            )}
+          </div>
+
+          <div className={styles.actionsStacked}>
+            <Button
+              className={styles.btn}
+              onClick={handleUsePrevious}
+              disabled={saveLeftovers.isPending}
+            >
+              {saveLeftovers.isPending ? "Saving..." : "Yes, Use These"}
+            </Button>
+            <Button
+              variant="outline"
+              className={styles.btn}
+              onClick={handleEditPrevious}
+              disabled={saveLeftovers.isPending}
+            >
+              No, Let Me Edit
+            </Button>
+            <Button
+              variant="ghost"
+              className={styles.btn}
+              onClick={handleSkip}
+              disabled={saveLeftovers.isPending}
+            >
+              No Leftovers
+            </Button>
+          </div>
+        </div>
+      );
+    }
+    return null;
+  }
 
   if (step === 2) {
     return (

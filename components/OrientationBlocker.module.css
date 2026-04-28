@@ -1,0 +1,72 @@
+@layer base {
+  .overlay {
+    display: none;
+  }
+
+  /* Show only on landscape orientation and max-height 600px to target phones and exclude tablets */
+  @media screen and (orientation: landscape) and (max-height: 600px) {
+    .overlay {
+      display: flex;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: var(--z-critical);
+      background-color: var(--background);
+      color: var(--foreground);
+      align-items: center;
+      justify-content: center;
+      padding: var(--spacing-6);
+      text-align: center;
+    }
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-4);
+    max-width: 400px;
+    background-color: var(--card);
+    padding: var(--spacing-8);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--border);
+  }
+
+  .icon {
+    color: var(--primary);
+    animation: rotatePhone 2.5s ease-in-out infinite;
+  }
+
+  @keyframes rotatePhone {
+    0% {
+      transform: rotate(-90deg);
+    }
+    30% {
+      transform: rotate(0deg);
+    }
+    70% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(-90deg);
+    }
+  }
+
+  .title {
+    font-family: var(--font-family-heading);
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 0;
+    color: var(--card-foreground);
+  }
+
+  .description {
+    font-size: 1rem;
+    color: var(--muted-foreground);
+    margin: 0;
+    line-height: 1.5;
+  }
+}

@@ -1,6 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { getSessionLatest } from "../endpoints/session/latest_GET.schema";
 import { getSessionGet } from "../endpoints/session/get_GET.schema";
+import { getSessionLastCompletedTalliesGet } from "../endpoints/session/lastCompletedTallies_GET.schema";
 import { postSessionStart } from "../endpoints/session/start_POST.schema";
 import { postEntryAdd } from "../endpoints/entry/add_POST.schema";
 import { postEntryUndo } from "../endpoints/entry/undo_POST.schema";
@@ -8,6 +9,13 @@ import { postSessionComplete } from "../endpoints/session/complete_POST.schema";
 import { postTallyAdjust } from "../endpoints/tally/adjust_POST.schema";
 import { postLeftoverSave } from "../endpoints/leftover/save_POST.schema";
 import { toast } from "sonner";
+
+export const useLastCompletedTallies = () => {
+  return useQuery({
+    queryKey: ["lastCompletedTallies"],
+    queryFn: () => getSessionLastCompletedTalliesGet(),
+  });
+};
 
 export const useLatestSession = () => {
   return useQuery({

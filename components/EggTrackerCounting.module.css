@@ -37,9 +37,39 @@
     font-weight: 500;
   }
 
+  .headerActions {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-3);
+  }
+
+  .helpBtn {
+    border-radius: var(--radius-full);
+    font-weight: 700;
+  }
+
   .completeBtn {
     border-radius: var(--radius-full);
     font-weight: 600;
+  }
+
+  .instructionList {
+    margin: 0 0 var(--spacing-4) 0;
+    padding-left: var(--spacing-6);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-2);
+    color: var(--foreground);
+    font-size: 0.9375rem;
+  }
+
+  .instructionNote {
+    margin: 0;
+    padding: var(--spacing-3);
+    background-color: var(--muted);
+    border-radius: var(--radius-md);
+    color: var(--foreground);
+    font-size: 0.875rem;
   }
 
   .sectionTitle {
@@ -56,7 +86,9 @@
     gap: var(--spacing-3);
   }
 
-  .typeCard {
+    .typeCard {
+    -webkit-appearance: none;
+    appearance: none;
     background-color: var(--surface);
     border: 2px solid transparent;
     border-left: 6px solid var(--card-color);
@@ -326,7 +358,9 @@
     }
   }
 
-  .missingPickerBtn {
+    .missingPickerBtn {
+    -webkit-appearance: none;
+    appearance: none;
     background-color: var(--surface);
     color: var(--foreground);
     border: 2px solid transparent;
@@ -394,7 +428,9 @@
     }
   }
 
-  .numberBtn {
+    .numberBtn {
+    -webkit-appearance: none;
+    appearance: none;
     background-color: var(--muted);
     color: var(--foreground);
     border: 2px solid transparent;
@@ -424,20 +460,29 @@
     cursor: not-allowed;
   }
 
+    .lastEntryHint {
+        font-size: 0.8rem;
+    font-family: var(--font-family-monospace);
+    color: var(--muted-foreground);
+    margin: 0 0 var(--spacing-2) 0;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
   .submitBtn {
     width: 100%;
     height: 4rem;
     font-size: 1.125rem;
   }
 
-  @keyframes fadeIn {
+    @keyframes fadeIn {
     from {
       opacity: 0;
-      transform: translateY(10px);
     }
     to {
       opacity: 1;
-      transform: translateY(0);
     }
   }
 }

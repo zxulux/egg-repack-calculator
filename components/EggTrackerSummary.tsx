@@ -12,7 +12,21 @@ interface Props {
 }
 
 export const EggTrackerSummary = ({ sessionData, onHome }: Props) => {
-  
+  const totalRepacked = sessionData.entries.reduce((sum, entry) => sum + entry.eggsRepacked, 0) +
+    sessionData.adjustments
+      .filter((adj) => !adj.isLeftover)
+      .reduce((sum, adj) => sum + adj.repackedDelta, 0);
+
+  let rateDisplay = "N/A";
+  if (sessionData.session.completedAt && sessionData.session.createdAt) {
+    const start = new Date(sessionData.session.createdAt).getTime();
+    const end = new Date(sessionData.session.completedAt).getTime();
+    const durationMs = end - start;
+    const durationMinutes = durationMs / 60000;
+    if (durationMinutes > 0) {
+      rateDisplay = (totalRepacked / durationMinutes).toFixed(2);
+    }
+  }
 
   return (
     <div className={styles.summaryContainer}>
@@ -21,8 +35,9 @@ export const EggTrackerSummary = ({ sessionData, onHome }: Props) => {
           <ClipboardCheck className={styles.icon} strokeWidth={1.5} />
         </div>
         <h2 className={styles.title}>Counting Complete</h2>
-        <p className={styles.subtitle}>
-          Session ID: {sessionData.session.id.slice(0, 8)}...
+                <p className={styles.subtitle}>
+          Started: {new Date(sessionData.session.createdAt).toLocaleString()} <br />
+          Completed: {sessionData.session.completedAt ? new Date(sessionData.session.completedAt).toLocaleString() : "In progress"}
         </p>
       </header>
 
@@ -55,22 +70,23 @@ export const EggTrackerSummary = ({ sessionData, onHome }: Props) => {
                 </div>
 
                 <div className={styles.numericCol}>
-                  <div className={styles.statValue}>{tallies.repackedCartons}</div>
+                  <div className={styles.statValueCarton}>{tallies.repackedCartons}</div>
                 </div>
 
                 <div className={styles.numericCol}>
-                  <div className={styles.statValue}>{leftoverRepacked}</div>
+                                    <div className={styles.statValue}>({leftoverRepacked})</div>
+
                 </div>
 
                 <div className={styles.numericCol}>
-                  <div className={styles.statValueDamaged}>
+                  <div className={styles.statValueCartonDamaged}>
                     {tallies.damagedCartons}
                   </div>
                 </div>
                 
                 <div className={styles.numericCol}>
-                  <div className={styles.statValueDamaged}>
-                    {leftoverDamaged}
+                                    <div className={styles.statValueDamaged}>
+                    ({leftoverDamaged})
                   </div>
                 </div>
               </div>
@@ -89,19 +105,24 @@ export const EggTrackerSummary = ({ sessionData, onHome }: Props) => {
               </div>
             </div>
             <div className={styles.numericCol}>
-              <div className={styles.statValue}>
+              <div className={styles.statValueCarton}>
                 {Math.floor(sessionData.combinedLargeWhiteRepacked / 12)}
               </div>
             </div>
             <div className={styles.numericCol}>
               <div className={styles.statValue}>
-                {sessionData.combinedLargeWhiteRepacked % 12}
+                                ({sessionData.combinedLargeWhiteRepacked % 12})
               </div>
             </div>
-            <div className={styles.numericCol}></div>
-            <div className={styles.numericCol}></div>
+                        <div className={`${styles.numericCol} ${styles.hiddenCol}`}></div>
+            <div className={`${styles.numericCol} ${styles.hiddenCol}`}></div>
           </div>
         </div>
+      </div>
+
+      <div className={styles.rateContainer}>
+        <div className={styles.rateLabel}>Eggs repacked per minute</div>
+        <div className={styles.rateValue}>{rateDisplay}</div>
       </div>
 
       <div className={styles.actions}>

@@ -61,6 +61,20 @@ app.post('_api/tally/adjust',async c => {
     return c.text("Error loading endpoint code " + e.message,  500)
   }
 })
+app.post('_api/leftover/save',async c => {
+  try {
+    const { handle } = await import("./endpoints/leftover/save_POST.js");
+    let request = c.req.raw;
+    const response = await handle(request);
+    if (!(response instanceof Response) && response.constructor.name !== "Response") {
+      return c.text("Invalid response format. handle should always return a Response object." + response.constructor.name, 500);
+    }
+    return response;
+  } catch (e) {
+    console.error(e);
+    return c.text("Error loading endpoint code " + e.message,  500)
+  }
+})
 app.get('_api/session/latest',async c => {
   try {
     const { handle } = await import("./endpoints/session/latest_GET.js");
@@ -103,9 +117,9 @@ app.post('_api/session/complete',async c => {
     return c.text("Error loading endpoint code " + e.message,  500)
   }
 })
-app.post('_api/leftover/save',async c => {
+app.get('_api/session/lastCompletedTallies',async c => {
   try {
-    const { handle } = await import("./endpoints/leftover/save_POST.js");
+    const { handle } = await import("./endpoints/session/lastCompletedTallies_GET.js");
     let request = c.req.raw;
     const response = await handle(request);
     if (!(response instanceof Response) && response.constructor.name !== "Response") {

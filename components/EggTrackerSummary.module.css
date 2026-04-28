@@ -123,12 +123,21 @@
     gap: var(--spacing-2);
   }
 
-  .statValue {
+    .statValue {
     font-family: var(--font-family-monospace);
     font-size: 1.5rem;
     font-weight: 700;
     color: var(--foreground);
     line-height: 1;
+  }
+
+  .statValueCarton {
+    font-family: var(--font-family-monospace);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--foreground);
+    line-height: 1;
+    padding-right: 1ch;
   }
 
   .statValueDamaged {
@@ -137,6 +146,15 @@
     font-weight: 700;
     color: var(--error);
     line-height: 1;
+  }
+
+  .statValueCartonDamaged {
+    font-family: var(--font-family-monospace);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--error);
+    line-height: 1;
+    padding-right: 1ch;
   }
   
   .emptyDash {
@@ -215,6 +233,29 @@
     margin-top: var(--spacing-4);
   }
 
+  .rateContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-1);
+    margin-top: var(--spacing-2);
+  }
+
+  .rateLabel {
+    font-size: 0.875rem;
+    color: var(--muted-foreground);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: 600;
+  }
+
+  .rateValue {
+    font-family: var(--font-family-monospace);
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--foreground);
+  }
+
   .homeBtn {
     width: 100%;
     max-width: 320px;
@@ -278,11 +319,15 @@
       font-weight: 600;
     }
     
-    .tableRow .numericCol:nth-child(5)::before {
+        .tableRow .numericCol:nth-child(5)::before {
       content: "Leftover";
       font-size: 0.875rem;
       color: var(--muted-foreground);
       font-weight: 600;
+    }
+
+    .tableRow .hiddenCol {
+      display: none;
     }
   }
 }

@@ -5,6 +5,7 @@ import { ThemeModeProvider } from "../helpers/themeMode";
 import { TooltipProvider } from "./Tooltip";
 import { SonnerToaster } from "./SonnerToaster";
 import { ScrollToHashElement } from "./ScrollToHashElement";
+import { OrientationBlocker } from "./OrientationBlocker";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -33,6 +34,7 @@ export const GlobalContextProviders = ({
         <ScrollToHashElement />
         <TooltipProvider>
           {children}
+          <OrientationBlocker />
           <SonnerToaster />
         </TooltipProvider>
       </ThemeModeProvider>

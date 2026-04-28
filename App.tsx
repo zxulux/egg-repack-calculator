@@ -110,7 +110,7 @@ export default function ScrollManager() {
 
 export function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter future={{ v7_startTransition: false, v7_relativeSplatPath: false }}>
       <ScrollManager />
       <GlobalContextProviders>
         <Routes>
